@@ -40,3 +40,19 @@ class CreateTaskView(generics.CreateAPIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class AllTasksView(generics.ListAPIView):
+    """API View to retrieve all tasks."""
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+class UserListView(generics.ListAPIView):
+    """API View to retrieve all users."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, *args, **kwargs):
+        """Handle GET requests to retrieve all users."""
+        users = self.get_queryset()
+        serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
