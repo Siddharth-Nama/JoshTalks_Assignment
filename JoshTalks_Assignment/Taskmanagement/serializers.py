@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from .models import User, Task
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the User model."""
